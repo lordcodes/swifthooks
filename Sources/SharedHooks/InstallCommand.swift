@@ -9,7 +9,12 @@ struct InstallCommand: ParsableCommand {
         abstract: "Install shared Git hooks"
     )
 
+    @Flag(name: .shortAndLong, help: "Silence any output except errors")
+    var quiet: Bool = false
+
     func run() throws {
-        InstallHooksService(printer: ConsolePrinter()).run()
+        let printer = ConsolePrinter(quiet: quiet)
+        InstallHooksService(printer: printer)
+            .run()
     }
 }

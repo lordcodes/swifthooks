@@ -10,6 +10,8 @@ struct VersionCommand: ParsableCommand {
     )
 
     func run() throws {
-        VersionService(printer: ConsolePrinter()).run()
+        let printer = ConsolePrinter(quiet: false)
+        VersionService(printer: printer)
+            .run()
     }
 }

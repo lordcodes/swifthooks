@@ -9,7 +9,12 @@ struct UninstallCommand: ParsableCommand {
         abstract: "Uninstall shared Git hooks"
     )
 
+    @Flag(name: .shortAndLong, help: "Silence any output except errors")
+    var quiet: Bool = false
+
     func run() throws {
-        UninstallHooksService(printer: ConsolePrinter()).run()
+        let printer = ConsolePrinter(quiet: quiet)
+        UninstallHooksService(printer: printer)
+            .run()
     }
 }
