@@ -13,8 +13,8 @@ struct UninstallCommand: ParsableCommand {
     var quiet: Bool = false
 
     func run() throws {
-        let printer = ConsolePrinter(quiet: quiet)
-        UninstallHooksService(printer: printer)
+        SharedHooks.configuration.printer = ConsolePrinter(quiet: quiet)
+        UninstallHooksService()
             .run()
     }
 }

@@ -13,8 +13,8 @@ struct InstallCommand: ParsableCommand {
     var quiet: Bool = false
 
     func run() throws {
-        let printer = ConsolePrinter(quiet: quiet)
-        InstallHooksService(printer: printer)
+        SharedHooks.configuration.printer = ConsolePrinter(quiet: quiet)
+        InstallHooksService()
             .run()
     }
 }

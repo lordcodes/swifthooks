@@ -12,7 +12,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.1.3")
+        .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.1.3"),
+        .package(url: "https://github.com/JohnSundell/Files", exact: "4.2.0"),
     ],
     targets: [
         .executableTarget(
@@ -24,7 +25,9 @@ let package = Package(
         ),
         .target(
             name: "SharedHooksKit",
-            dependencies: []
+            dependencies: [
+                .product(name: "Files", package: "Files")
+            ]
         ),
         .testTarget(
             name: "SharedHooksKitTests",
