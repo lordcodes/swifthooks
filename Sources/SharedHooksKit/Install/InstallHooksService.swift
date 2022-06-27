@@ -2,13 +2,14 @@
 
 import Files
 
+// TODO: Add tests
+
 /// Service to install project git hooks into .git.
 /// Handles non-SharedHooks hooks that are already found by backing them up and will also overwrite old SharedHooks hook files.
 public struct InstallHooksService {
     /// Create the service.
     public init() {}
 
-#warning("Add tests")
     /// Entry-point to run the service.
     /// - throws: `ExecutionError` when a fatal error has occurred and the command should fail.
     public func run() throws {
