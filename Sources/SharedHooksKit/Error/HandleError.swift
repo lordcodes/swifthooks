@@ -7,7 +7,7 @@ func handleFatalError<ResultT>(block: () throws -> ResultT) throws -> ResultT {
         printer.printError(error)
         throw ExecutionError.failure
     } catch {
-        printer.printError(.otherError(error))
+        printer.printError(.otherError(error.localizedDescription))
         throw ExecutionError.failure
     }
 }
@@ -18,6 +18,6 @@ func handleNonFatalError(block: () throws -> Void) {
     } catch let error as SharedHooksError {
         printer.printError(error)
     } catch {
-        printer.printError(.otherError(error))
+        printer.printError(.otherError(error.localizedDescription))
     }
 }

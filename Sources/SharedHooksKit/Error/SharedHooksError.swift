@@ -3,7 +3,7 @@
 import Foundation
 
 /// Error type thrown by SharedHooks' throwing APIs.
-public enum SharedHooksError: Error {
+public enum SharedHooksError: Error, Equatable {
     /// No .git directory was found.
     case noGitDirectory
 
@@ -13,8 +13,20 @@ public enum SharedHooksError: Error {
     /// Issue interacting with the hook file.
     case resovingHookFile(hook: String, reason: ResolvingHookFile)
 
+    /// Issue setting read/write/execute permissions of hook file.
+    case settingPermissionsOnHookFile(hook: String)
+
+    /// Issue writing contents to hook file.
+    case writingToHookFile(hook: String)
+
     // Other errors that weren't explicitly handled by the framework.
-    case otherError(Error)
+    case otherError(String)
+}
+
+extension SharedHooksError: LocalizedError {
+    public var errorDescription: String? {
+        description
+    }
 }
 
 extension SharedHooksError: CustomStringConvertible {
@@ -32,16 +44,20 @@ extension SharedHooksError: CustomStringConvertible {
         case .noProjectHooksDirectory:
             return "Couldn't read or create the project .git-hooks directory."
         case let .resovingHookFile(hook, reason):
-            return "For hook \(hook), \(reason.description)"
-        case let .otherError(error):
-            return error.localizedDescription
+            return "For hook \(hook), \(reason.description)."
+        case let .settingPermissionsOnHookFile(hook):
+            return "For hook \(hook), failed to set permissions of hook file."
+        case let .writingToHookFile(hook):
+            return "For hook \(hook), failed to write contents to hook file."
+        case let .otherError(message):
+            return "Other error, \(message)"
         }
     }
 }
 
 extension SharedHooksError {
     /// Different reasons interacting with the hook file failed.
-    public enum ResolvingHookFile {
+    public enum ResolvingHookFile: Equatable {
         /// Creating a new hook file failed.
         case creatingNew
 

@@ -14,12 +14,16 @@ public protocol Printer {
     func printError(_ error: SharedHooksError)
 }
 
-struct NoPrinter: Printer {
-    func printMessage(_ message: @autoclosure () -> String) {}
+/// A no-op implementation of printer to disable printing.
+public struct NoPrinter: Printer {
+    /// No-op
+    public func printMessage(_ message: @autoclosure () -> String) {}
 
-    func printForced(_ message: @autoclosure () -> String) {}
+    /// No-op
+    public func printForced(_ message: @autoclosure () -> String) {}
 
-    func printError(_ error: SharedHooksError) {}
+    /// No-op
+    public func printError(_ error: SharedHooksError) {}
 }
 
 /// A printer for outputting to the console using `print` for messages and `fputs` to `stderr` for errors.

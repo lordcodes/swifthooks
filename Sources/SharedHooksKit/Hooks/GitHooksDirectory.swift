@@ -3,6 +3,7 @@
 import Files
 
 extension Folder {
+#warning("Add tests")
     func gitHooks() throws -> Folder {
         let gitDirectory = try git()
         return try gitDirectory.createSubfolderIfNeeded(at: "hooks")
@@ -16,6 +17,7 @@ extension Folder {
         }
     }
 
+#warning("Add tests")
     func projectHooks() throws -> Folder {
         do {
             return try createSubfolderIfNeeded(at: ".git-hooks")

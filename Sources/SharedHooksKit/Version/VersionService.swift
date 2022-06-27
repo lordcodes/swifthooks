@@ -5,6 +5,7 @@ public struct VersionService {
     /// Create the service.
     public init() {}
 
+#warning("Add tests")
     /// Entry-point to run the service.
     public func run() {
         printer.printForced(Version.current)

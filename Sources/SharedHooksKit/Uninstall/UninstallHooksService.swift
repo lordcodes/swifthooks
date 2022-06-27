@@ -8,6 +8,7 @@ public struct UninstallHooksService {
     /// Create the service.
     public init() {}
 
+#warning("Add tests")
     /// Entry-point to run the service.
     /// - throws: `ExecutionError` when a fatal error has occurred and the command should fail.
     public func run() throws {
