@@ -2,9 +2,14 @@
 
 import Files
 
+/// Service to uninstall project git hooks from .git.
+/// Deletes SharedHooks hook files and then restores backed-up non-SharedHooks hook files if any exist.
 public struct UninstallHooksService {
+    /// Create the service.
     public init() {}
 
+    /// Entry-point to run the service.
+    /// - throws: `ExecutionError` when a fatal error has occurred and the command should fail.
     public func run() throws {
         printer.printMessage("🗑 Uninstalling git hooks")
 

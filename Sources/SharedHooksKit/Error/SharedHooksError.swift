@@ -2,10 +2,18 @@
 
 import Foundation
 
+/// Error type thrown by SharedHooks' throwing APIs.
 public enum SharedHooksError: Error {
+    /// No .git directory was found.
     case noGitDirectory
+
+    /// No project .git-hooks directory was found.
     case noProjectHooksDirectory
+
+    /// Issue interacting with the hook file.
     case resovingHookFile(hook: String, reason: ResolvingHookFile)
+
+    // Other errors that weren't explicitly handled by the framework.
     case otherError(Error)
 }
 
@@ -32,10 +40,18 @@ extension SharedHooksError: CustomStringConvertible {
 }
 
 extension SharedHooksError {
+    /// Different reasons interacting with the hook file failed.
     public enum ResolvingHookFile {
+        /// Creating a new hook file failed.
         case creatingNew
+
+        /// Deleting an existing hook file failed, either when uninstalling or re-installing.
         case deletingExisting
+
+        /// Reading the contents of a hook file failed.
         case readExistingHookFileContents
+
+        /// Renaming a non-SharedHooks hook file in order to back it up failed.
         case renamingBackup
 
         var description: String {
