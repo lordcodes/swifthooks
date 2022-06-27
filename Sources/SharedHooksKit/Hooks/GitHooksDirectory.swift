@@ -1,6 +1,5 @@
 // Copyright © 2022 Andrew Lord.
 
-import ArgumentParser
 import Files
 
 extension Folder {
@@ -11,10 +10,17 @@ extension Folder {
 
     private func git() throws -> Folder {
         do {
-            return try Folder(path: ".git")
+            return try subfolder(named: ".git")
         } catch is LocationError {
-            print("Error: Couldn't find .git directory. Please make sure you are in the project root directory.")
-            throw ExitCode.failure
+            throw SharedHooksError.noGitDirectory
+        }
+    }
+
+    func projectHooks() throws -> Folder {
+        do {
+            return try createSubfolderIfNeeded(at: ".git-hooks")
+        } catch is WriteError {
+            throw SharedHooksError.noProjectHooksDirectory
         }
     }
 }

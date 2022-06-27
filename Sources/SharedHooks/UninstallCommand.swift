@@ -14,7 +14,9 @@ struct UninstallCommand: ParsableCommand {
 
     func run() throws {
         SharedHooks.configuration.printer = ConsolePrinter(quiet: quiet)
-        UninstallHooksService()
-            .run()
+        try runCommand {
+            try UninstallHooksService()
+                .run()
+        }
     }
 }

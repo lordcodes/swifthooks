@@ -7,7 +7,7 @@ public protocol Printer {
 
     func printForced(_ message: @autoclosure () -> String)
 
-    func printError(_ error: @autoclosure () -> CustomStringConvertible)
+    func printError(_ error: SharedHooksError)
 }
 
 struct NoPrinter: Printer {
@@ -15,7 +15,7 @@ struct NoPrinter: Printer {
 
     func printForced(_ message: @autoclosure () -> String) {}
 
-    func printError(_ error: @autoclosure () -> CustomStringConvertible) {}
+    func printError(_ error: SharedHooksError) {}
 }
 
 public struct ConsolePrinter: Printer {
@@ -35,7 +35,7 @@ public struct ConsolePrinter: Printer {
         print(message())
     }
 
-    public func printError(_ error: @autoclosure () -> CustomStringConvertible) {
-        fputs("\(error())\n", stderr)
+    public func printError(_ error: SharedHooksError) {
+        fputs("\(error.description)\n", stderr)
     }
 }

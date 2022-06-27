@@ -14,7 +14,9 @@ struct InstallCommand: ParsableCommand {
 
     func run() throws {
         SharedHooks.configuration.printer = ConsolePrinter(quiet: quiet)
-        InstallHooksService()
-            .run()
+        try runCommand {
+            try InstallHooksService()
+                .run()
+        }
     }
 }
