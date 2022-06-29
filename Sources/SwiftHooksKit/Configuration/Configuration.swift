@@ -1,6 +1,6 @@
 // Copyright © 2022 Andrew Lord.
 
-/// Configure the SharedHooksKit framework.
+/// Configure the SwiftHooksKit framework.
 public class Configuration {
     /// Control outputting of messages and errors, by default does nothing.
     /// 

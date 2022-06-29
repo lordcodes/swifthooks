@@ -2,8 +2,8 @@
 
 import Foundation
 
-/// Error type thrown by SharedHooks' throwing APIs.
-public enum SharedHooksError: Error, Equatable {
+/// Error type thrown by SwiftHooks' throwing APIs.
+public enum SwiftHooksError: Error, Equatable {
     /// No .git directory was found.
     case noGitDirectory
 
@@ -23,16 +23,16 @@ public enum SharedHooksError: Error, Equatable {
     case otherError(String)
 }
 
-extension SharedHooksError: LocalizedError {
+extension SwiftHooksError: LocalizedError {
     public var errorDescription: String? {
         description
     }
 }
 
-extension SharedHooksError: CustomStringConvertible {
+extension SwiftHooksError: CustomStringConvertible {
     public var description: String {
         """
-        SharedHooks encountered an error.
+        SwiftHooks encountered an error.
         Reason: \(reason)
         """
     }
@@ -55,7 +55,7 @@ extension SharedHooksError: CustomStringConvertible {
     }
 }
 
-extension SharedHooksError {
+extension SwiftHooksError {
     /// Different reasons interacting with the hook file failed.
     public enum ResolvingHookFile: Equatable {
         /// Creating a new hook file failed.
@@ -67,7 +67,7 @@ extension SharedHooksError {
         /// Reading the contents of a hook file failed.
         case readExistingHookFileContents
 
-        /// Renaming a non-SharedHooks hook file in order to back it up failed.
+        /// Renaming a non-SwiftHooks hook file in order to back it up failed.
         case renamingBackup
 
         var description: String {
@@ -75,11 +75,11 @@ extension SharedHooksError {
             case .creatingNew:
                 return "Failed to create new hook file"
             case .deletingExisting:
-                return "Failed to delete existing SharedHooks hook file"
+                return "Failed to delete existing SwiftHooks hook file"
             case .readExistingHookFileContents:
                 return "Failed to read contents of existing hook file"
             case .renamingBackup:
-                return "Failed to backup a non-SharedHooks hook file by renaming it"
+                return "Failed to backup a non-SwiftHooks hook file by renaming it"
             }
         }
     }

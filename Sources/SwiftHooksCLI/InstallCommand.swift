@@ -1,7 +1,7 @@
 // Copyright © 2022 Andrew Lord.
 
 import ArgumentParser
-import SharedHooksKit
+import SwiftHooksKit
 
 struct InstallCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
@@ -13,7 +13,7 @@ struct InstallCommand: ParsableCommand {
     var quiet: Bool = false
 
     func run() throws {
-        SharedHooks.configuration.printer = ConsolePrinter(quiet: quiet)
+        SwiftHooks.configuration.printer = ConsolePrinter(quiet: quiet)
         try runCommand {
             try InstallHooksService()
                 .run()

@@ -3,12 +3,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "sharedhooks-swift",
+    name: "swifthooks",
     platforms: [.macOS(.v11)],
     products: [
         .executable(
             name: "tuist-hooks",
-            targets: ["SharedHooks"]
+            targets: ["SwiftHooksCLI"]
+        ),
+        .executable(
+            name: "swifthooks",
+            targets: ["SwiftHooksCLI"]
         )
     ],
     dependencies: [
@@ -17,21 +21,21 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "SharedHooks",
+            name: "SwiftHooksCLI",
             dependencies: [
-                .target(name: "SharedHooksKit"),
+                .target(name: "SwiftHooksKit"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
         ),
         .target(
-            name: "SharedHooksKit",
+            name: "SwiftHooksKit",
             dependencies: [
                 .product(name: "Files", package: "Files")
             ]
         ),
         .testTarget(
-            name: "SharedHooksKitTests",
-            dependencies: ["SharedHooksKit"]
+            name: "SwiftHooksKitTests",
+            dependencies: ["SwiftHooksKit"]
         ),
     ]
 )

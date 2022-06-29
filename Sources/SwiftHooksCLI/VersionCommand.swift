@@ -1,7 +1,7 @@
 // Copyright © 2022 Andrew Lord.
 
 import ArgumentParser
-import SharedHooksKit
+import SwiftHooksKit
 
 struct VersionCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
@@ -10,7 +10,7 @@ struct VersionCommand: ParsableCommand {
     )
 
     func run() throws {
-        SharedHooks.configuration.printer = ConsolePrinter(quiet: false)
+        SwiftHooks.configuration.printer = ConsolePrinter(quiet: false)
         VersionService()
             .run()
     }

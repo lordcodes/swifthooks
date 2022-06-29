@@ -1,11 +1,11 @@
 // Copyright © 2022 Andrew Lord.
 
-@testable import SharedHooksKit
+@testable import SwiftHooksKit
 
 class FakePrinter: Printer {
     var messagesPrinted = [String]()
     var forcedMessagesPrinted = [String]()
-    var errorsPrinted = [SharedHooksError]()
+    var errorsPrinted = [SwiftHooksError]()
 
     func printMessage(_ message: @autoclosure () -> String) {
         messagesPrinted.append(message())
@@ -15,7 +15,7 @@ class FakePrinter: Printer {
         forcedMessagesPrinted.append(message())
     }
 
-    func printError(_ error: SharedHooksError) {
+    func printError(_ error: SwiftHooksError) {
         errorsPrinted.append(error)
     }
 }

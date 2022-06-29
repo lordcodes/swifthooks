@@ -14,7 +14,7 @@ extension Folder {
         do {
             return try subfolder(named: ".git")
         } catch is LocationError {
-            throw SharedHooksError.noGitDirectory
+            throw SwiftHooksError.noGitDirectory
         }
     }
 
@@ -22,7 +22,7 @@ extension Folder {
         do {
             return try createSubfolderIfNeeded(at: ".git-hooks")
         } catch is WriteError {
-            throw SharedHooksError.noProjectHooksDirectory
+            throw SwiftHooksError.noProjectHooksDirectory
         }
     }
 }

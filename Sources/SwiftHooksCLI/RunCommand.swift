@@ -1,7 +1,7 @@
 // Copyright © 2022 Andrew Lord.
 
 import ArgumentParser
-import SharedHooksKit
+import SwiftHooksKit
 
 extension ParsableCommand {
     func runCommand(runCommand: () throws -> Void) throws {

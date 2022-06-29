@@ -10,9 +10,9 @@ labels: bug
 ### Checklist
 <!-- Please check the boxes below, you do this by putting an x in the box like this: [x]. Thank you! -->
 
-- [ ] I've read the [guide for contributing](https://github.com/lordcodes/sharedhooks-swift/blob/master/CONTRIBUTING.md).
-- [ ] I've checked there are no other [open pull requests](https://github.com/lordcodes/sharedhooks-swift/pulls) for the issue.
-- [ ] I've checked there are no other [open issues](https://github.com/lordcodes/sharedhooks-swift/issues) for the same issue.
+- [ ] I've read the [guide for contributing](https://github.com/lordcodes/swifthooks/blob/master/CONTRIBUTING.md).
+- [ ] I've checked there are no other [open pull requests](https://github.com/lordcodes/swifthooks/pulls) for the issue.
+- [ ] I've checked there are no other [open issues](https://github.com/lordcodes/swifthooks/issues) for the same issue.
 
 ### To Reproduce
 <!-- Please provide the steps taken to reproduce the unexpected behaviour or bug.  -->

@@ -13,9 +13,9 @@ labels: enhancement
 ### Checklist
 <!-- Please check the boxes below, you do this by putting an x in the box like this: [x]. Thank you! -->
 
-- [ ] I've read the [guide for contributing](https://github.com/lordcodes/sharedhooks-swift/blob/master/CONTRIBUTING.md).
-- [ ] I've checked there are no other [open pull requests](https://github.com/lordcodes/sharedhooks-swift/pulls) for the feature.
-- [ ] I've checked there are no other [open issues](https://github.com/lordcodes/sharedhooks-swift/issues) for the same feature.
+- [ ] I've read the [guide for contributing](https://github.com/lordcodes/swifthooks/blob/master/CONTRIBUTING.md).
+- [ ] I've checked there are no other [open pull requests](https://github.com/lordcodes/swifthooks/pulls) for the feature.
+- [ ] I've checked there are no other [open issues](https://github.com/lordcodes/swifthooks/issues) for the same feature.
 
 ### Additional context
 <!-- Please add any other information about the idea here.  -->

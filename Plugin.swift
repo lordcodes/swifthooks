@@ -2,4 +2,4 @@
 
 import ProjectDescription
 
-let plugin = Plugin(name: "SharedHooks")
+let plugin = Plugin(name: "swifthooks")
