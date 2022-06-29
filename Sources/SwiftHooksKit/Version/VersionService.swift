@@ -1,7 +1,5 @@
 // Copyright © 2022 Andrew Lord.
 
-// TODO: Add tests
-
 /// Service to print the current project version.
 public struct VersionService {
     /// Create the service.

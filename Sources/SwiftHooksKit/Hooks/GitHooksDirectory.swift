@@ -2,8 +2,6 @@
 
 import Files
 
-// TODO: Add tests
-
 extension Folder {
     func gitHooks() throws -> Folder {
         let gitDirectory = try git()
