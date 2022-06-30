@@ -1,6 +1,6 @@
 # Changelog
 
-## Un-released changes (master)
+## Un-released changes (main)
 
 ## v0.0.1
 
