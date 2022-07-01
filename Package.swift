@@ -16,15 +16,13 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", exact: "1.1.3"),
         .package(url: "https://github.com/JohnSundell/Files", exact: "4.2.0"),
     ],
     targets: [
         .executableTarget(
             name: "SwiftHooksCLI",
             dependencies: [
-                .target(name: "SwiftHooksKit"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .target(name: "SwiftHooksKit")
             ]
         ),
         .target(

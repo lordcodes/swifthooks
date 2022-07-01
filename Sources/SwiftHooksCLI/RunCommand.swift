@@ -1,14 +1,15 @@
 // Copyright © 2022 Andrew Lord.
 
-import ArgumentParser
+import Darwin
 import SwiftHooksKit
 
-extension ParsableCommand {
-    func runCommand(runCommand: () throws -> Void) throws {
-        do {
-            try runCommand()
-        } catch ExecutionError.failure {
-            throw ExitCode.failure
-        }
+func runCommand(runCommand: () throws -> Void) {
+    do {
+        try runCommand()
+    } catch ExecutionError.failure {
+        exit(EXIT_FAILURE)
+    } catch {
+        print(error)
+        exit(EXIT_FAILURE)
     }
 }
