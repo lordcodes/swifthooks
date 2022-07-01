@@ -2,6 +2,8 @@
 
 ## Un-released changes (main)
 
+## v0.1.0
+
 * Reduce size of Tuist plugin archive to less than a third of before.
 
 ## v0.0.1

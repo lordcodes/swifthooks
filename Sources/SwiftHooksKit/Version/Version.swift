@@ -3,5 +3,5 @@
 import Foundation
 
 enum Version {
-    static let current = "0.0.1"
+    static let current = "0.1.0"
 }
