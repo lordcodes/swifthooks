@@ -45,7 +45,7 @@ A command is provided to remove any installed hooks.
 
 The primary intention was to use SwiftHooks as a [Tuist](https://github.com/tuist/tuist) plugin, however, it can also be used as a standard CLI tool as well.
 
-### ▶︎ Tuist Plugin
+### ▶︎ 🖥 As a Tuist Plugin
 
 To set up as a Tuist plugin in your project simply follow the [Tuist plugin install instructions](https://docs.tuist.io/plugins/using-plugins/) using the [latest version](https://github.com/lordcodes/swifthooks/releases/latest).
 
@@ -61,7 +61,7 @@ let config = Config(
 )
 ```
 
-### ▶︎ Standalone via Swift Package Manager
+### ▶︎ 🖥 Standalone via Swift Package Manager
 
 SwiftHooks can be easily installed globally using Swift Package Manager.
 
@@ -75,15 +75,23 @@ This will install swifthooks into `/usr/local/bin`. If you get a permission erro
 
 You can uninstall it again using `make uninstall` which simply deletes it from `/usr/local/bin`.
 
-#### ▶︎ Homebrew
+### ▶︎ 🍺 Homebrew
 
 Support for Homebrew may be planned in the future.
+
+### ▶︎ 📦 As a Swift package
+
+To install SwiftHooks for use in your own Swift code, add it is a Swift Package Manager dependency within your `Package.swift` file. For help in doing this, please check out the Swift Package Manager documentation.
+
+```swift
+.package(url: "https://github.com/lordcodes/swifthooks", exact: "0.0.1")
+```
 
 &nbsp;
 
 ## Usage
 
-### Tuist Plugin
+### 🖥 Via the Tuist Plugin
 
 Ensure you have fetched with `tuist fetch` and you will then be able to run the plugin's tasks.
 
@@ -99,7 +107,7 @@ OPTIONS:
   -q, --quiet             Silence any output except errors 
 ```
 
-### Standalone CLI
+### 🖥 Via the Standalone CLI
 
 ```terminal
 USAGE: swifthooks <install|uninstall|version> [-q|--quiet]
@@ -111,6 +119,23 @@ ARGUMENTS:
 
 OPTIONS:
   -q, --quiet             Silence any output except errors 
+```
+
+### 📦 As a Swift Package
+
+To use SwiftHooks within your own Swift code, import and use the public API of `SwiftHooksKit`.
+
+```swift
+import SwiftHooksKit
+
+// Configure printing
+SwiftHooks.configuration.printer = ConsolePrinter(quiet: false)
+
+// Install hooks
+try InstallHooksService().run()
+
+// Uninstall hooks
+try UninstallHooksService().run()
 ```
 
 ## Contributing or Help
