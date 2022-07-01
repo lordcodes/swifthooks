@@ -1,22 +1,56 @@
 // Copyright © 2022 Andrew Lord.
 
-import ArgumentParser
 import SwiftHooksKit
 
-struct UninstallCommand: ParsableCommand {
-    static var configuration = CommandConfiguration(
-        commandName: "uninstall",
-        abstract: "Uninstall shared Git hooks"
-    )
+struct UninstallCommand {
+    let programName: String
+    let option: String?
 
-    @Flag(name: .shortAndLong, help: "Silence any output except errors")
-    var quiet: Bool = false
-
-    func run() throws {
-        SwiftHooks.configuration.printer = ConsolePrinter(quiet: quiet)
-        try runCommand {
-            try UninstallHooksService()
-                .run()
+    func run() {
+        switch option {
+        case .none:
+            performUninstall(isQuiet: false)
+        case .some("-q"), .some("--quiet"):
+            performUninstall(isQuiet: true)
+        case .some("-h"), .some("--help"):
+            printHelp()
+        case let .some(other):
+            printUnexpectedOptionError(option: other)
         }
+    }
+
+    private func performUninstall(isQuiet: Bool) {
+        SwiftHooks.configuration.printer = ConsolePrinter(quiet: isQuiet)
+        runCommand {
+            try UninstallHooksService().run()
+        }
+    }
+
+    private func printUnexpectedOptionError(option: String) {
+        let message = """
+        Error: Unknown option '\(option)'
+
+        USAGE: \(programName) uninstall [--quiet]
+
+        OPTIONS:
+          -q, --quiet             Silence any output except errors
+          -h, --help              Show help information.
+
+        """
+        print(message)
+    }
+
+    private func printHelp() {
+        let help = """
+        OVERVIEW: Uninstall shared Git hooks
+
+        USAGE: \(programName) uninstall [--quiet]
+
+        OPTIONS:
+          -q, --quiet             Silence any output except errors
+          -h, --help              Show help information.
+        
+        """
+        print(help)
     }
 }

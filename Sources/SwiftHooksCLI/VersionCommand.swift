@@ -1,17 +1,50 @@
 // Copyright © 2022 Andrew Lord.
 
-import ArgumentParser
 import SwiftHooksKit
 
-struct VersionCommand: ParsableCommand {
-    static var configuration = CommandConfiguration(
-        commandName: "version",
-        abstract: "Print version"
-    )
+struct VersionCommand {
+    let programName: String
+    let option: String?
 
-    func run() throws {
+    func run() {
+        switch option {
+        case .none:
+            performVersion()
+        case .some("-h"), .some("--help"):
+            printHelp()
+        case let .some(other):
+            printUnexpectedOptionError(option: other)
+        }
+    }
+
+    private func performVersion() {
         SwiftHooks.configuration.printer = ConsolePrinter(quiet: false)
-        VersionService()
-            .run()
+        VersionService().run()
+    }
+
+    private func printUnexpectedOptionError(option: String) {
+        let message = """
+        Error: Unknown option '\(option)'
+
+        USAGE: \(programName) version
+
+        OPTIONS:
+          -h, --help              Show help information.
+
+        """
+        print(message)
+    }
+
+    private func printHelp() {
+        let help = """
+        OVERVIEW: Print version
+
+        USAGE: \(programName) version
+
+        OPTIONS:
+          -h, --help              Show help information.
+        
+        """
+        print(help)
     }
 }
