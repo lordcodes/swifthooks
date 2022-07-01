@@ -2,6 +2,8 @@
 
 ## Un-released changes (main)
 
+* Reduce size of Tuist plugin archive to less than a third of before.
+
 ## v0.0.1
 
 * Initial release of SwiftHooks
