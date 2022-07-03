@@ -27,17 +27,8 @@ struct UninstallCommand {
     }
 
     private func printUnexpectedOptionError(option: String) {
-        let message = """
-        Error: Unknown option '\(option)'
-
-        USAGE: \(programName) uninstall [--quiet]
-
-        OPTIONS:
-          -q, --quiet             Silence any output except errors
-          -h, --help              Show help information.
-
-        """
-        print(message)
+        print("Error: Unknown option '\(option)'\n")
+        printHelp()
     }
 
     private func printHelp() {

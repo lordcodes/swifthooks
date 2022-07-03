@@ -23,16 +23,8 @@ struct VersionCommand {
     }
 
     private func printUnexpectedOptionError(option: String) {
-        let message = """
-        Error: Unknown option '\(option)'
-
-        USAGE: \(programName) version
-
-        OPTIONS:
-          -h, --help              Show help information.
-
-        """
-        print(message)
+        print("Error: Unknown option '\(option)'\n")
+        printHelp()
     }
 
     private func printHelp() {

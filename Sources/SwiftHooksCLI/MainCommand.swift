@@ -49,23 +49,8 @@ struct MainCommand {
     }
 
     private func printUnexpectedArgumentError(programName: String, argument: String) {
-        let message = """
-        Error: Unknown argument '\(argument)'
-
-        USAGE: \(programName) <subcommand>
-
-        OPTIONS:
-          -h, --help              Show help information.
-
-        SUBCOMMANDS:
-          install                 Install shared Git hooks
-          uninstall               Uninstall shared Git hooks
-          version                 Print version
-
-        See '\(programName) <subcommand> --help' for detailed help.
-
-        """
-        print(message)
+        print("Error: Unknown argument '\(argument)'\n")
+        printHelp(programName: programName)
     }
 
     private func printHelp(programName: String) {
