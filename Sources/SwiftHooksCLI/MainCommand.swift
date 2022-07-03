@@ -4,9 +4,11 @@ import Darwin
 import Foundation
 
 struct MainCommand {
-    func run() {
-        let programName = extractProgramName()
-        let (subcommand, option) = extractSubcommand(programName: programName)
+    let arguments: [String]
+
+    func run() throws {
+        let programName = try extractProgramName()
+        let (subcommand, option) = try extractSubcommand(programName: programName)
         switch subcommand {
         case "install":
             InstallCommand(programName: programName, option: option).run()
@@ -21,9 +23,9 @@ struct MainCommand {
         }
     }
 
-    private func extractProgramName() -> String {
-        guard let program = CommandLine.arguments.first else {
-            exit(EXIT_SUCCESS)
+    private func extractProgramName() throws -> String {
+        guard let program = arguments.first else {
+            throw ExitCode.success
         }
         var programName = URL(fileURLWithPath: program).lastPathComponent
         if programName == "tuist-hooks" {
@@ -32,15 +34,15 @@ struct MainCommand {
         return programName
     }
 
-    private func extractSubcommand(programName: String) -> (subcommand: String, option: String?) {
-        let arguments = Array(CommandLine.arguments.dropFirst())
+    private func extractSubcommand(programName: String) throws -> (subcommand: String, option: String?) {
+        let arguments = Array(arguments.dropFirst())
         guard arguments.count > 0 else {
             printHelp(programName: programName)
-            exit(EXIT_SUCCESS)
+            throw ExitCode.success
         }
         guard arguments.count <= 2, let command = arguments.first else {
             printHelp(programName: programName)
-            exit(EXIT_FAILURE)
+            throw ExitCode.failure
         }
         if arguments.count == 1 {
             return (subcommand: command, option: nil)
