@@ -1,18 +1,18 @@
 // Copyright © 2022 Andrew Lord.
 
-func handleFatalError<ResultT>(block: () throws -> ResultT) throws -> ResultT {
+func handleFatalError<ResultT>(using printer: Printer, block: () throws -> ResultT) throws -> ResultT {
     do {
         return try block()
     } catch let error as SwiftHooksError {
         printer.printError(error)
-        throw ExecutionError.failure
+        throw ExitCode.failure
     } catch {
         printer.printError(.otherError(error.localizedDescription))
-        throw ExecutionError.failure
+        throw ExitCode.failure
     }
 }
 
-func handleNonFatalError(block: () throws -> Void) {
+func handleNonFatalError(using printer: Printer, block: () throws -> Void) {
     do {
         try block()
     } catch let error as SwiftHooksError {

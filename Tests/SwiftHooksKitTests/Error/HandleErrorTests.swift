@@ -7,16 +7,8 @@ import XCTest
 class HandleErrorTests: XCTestCase {
     private let printer = FakePrinter()
 
-    override func setUpWithError() throws {
-        SwiftHooks.configuration.printer = printer
-    }
-
-    override func tearDownWithError() throws {
-        SwiftHooks.configuration.printer = NoPrinter()
-    }
-
     func test_handleFatalError_noError() throws {
-        let actual = try handleFatalError { "Success" }
+        let actual = try handleFatalError(using: printer) { "Success" }
 
         XCTAssertEqual(actual, "Success")
         XCTAssertNil(printer.errorsPrinted.last)
@@ -24,9 +16,9 @@ class HandleErrorTests: XCTestCase {
 
     func test_handleFatalError_SwiftHooksError() throws {
         XCTAssertThrowsError(
-            try handleFatalError { throw SwiftHooksError.noGitDirectory }
+            try handleFatalError(using: printer) { throw SwiftHooksError.noGitDirectory }
         ) { error in
-            XCTAssertEqual(error as! ExecutionError, ExecutionError.failure)
+            XCTAssertEqual(error as! ExitCode, ExitCode.failure)
         }
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
@@ -35,9 +27,9 @@ class HandleErrorTests: XCTestCase {
 
     func test_handleFatalError_otherError() throws {
         XCTAssertThrowsError(
-            try handleFatalError { throw TestError.failed }
+            try handleFatalError(using: printer) { throw TestError.failed }
         ) { error in
-            XCTAssertEqual(error as! ExecutionError, ExecutionError.failure)
+            XCTAssertEqual(error as! ExitCode, ExitCode.failure)
         }
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
@@ -45,13 +37,13 @@ class HandleErrorTests: XCTestCase {
     }
 
     func test_handleNonFatalError_noError() throws {
-        handleNonFatalError { let _ = 6 }
+        handleNonFatalError(using: printer) { let _ = 6 }
 
         XCTAssertNil(printer.errorsPrinted.last)
     }
 
     func test_handleNonFatalError_SwiftHooksError() throws {
-        handleNonFatalError { throw SwiftHooksError.noGitDirectory }
+        handleNonFatalError(using: printer) { throw SwiftHooksError.noGitDirectory }
 
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
@@ -59,7 +51,7 @@ class HandleErrorTests: XCTestCase {
     }
 
     func test_handleNonFatalError_otherError() throws {
-        handleNonFatalError { throw TestError.failed }
+        handleNonFatalError(using: printer) { throw TestError.failed }
 
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
