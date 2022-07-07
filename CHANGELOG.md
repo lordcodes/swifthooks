@@ -1,14 +1,16 @@
 # Changelog
 
-## Un-released changes (main)
+## 0.2.0 - 2022-07-07
+
+- no changes
 
 ## v0.1.0
 
-* Reduce size of Tuist plugin archive to less than a third of before.
+- Reduce size of Tuist plugin archive to less than a third of before.
 
 ## v0.0.1
 
-* Initial release of SwiftHooks
-* CLI for install, uninstall and version
-* Backing framework for install, uninstall and version
-* Configured to be used as a Tuist plugin
+- Initial release of SwiftHooks
+- CLI for install, uninstall and version
+- Backing framework for install, uninstall and version
+- Configured to be used as a Tuist plugin
