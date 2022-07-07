@@ -9,16 +9,8 @@ import Files
 /// Handles non-SwiftHooks hooks that are already found by backing them up and
 /// will also overwrite old SwiftHooks hook files.
 public struct InstallHooksService {
-    private let printer: Printer
-
     /// Create the service.
-    public init() {
-        self.init(printer: SwiftHooks.shared.printer)
-    }
-
-    init(printer: Printer) {
-        self.printer = printer
-    }
+    public init() {}
 
     /// Entry-point to run the service.
     /// - throws: ExitCode when operation ends early due to success or failure.  

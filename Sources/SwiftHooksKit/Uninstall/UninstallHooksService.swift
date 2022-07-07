@@ -7,16 +7,8 @@ import Files
 /// Service to uninstall project git hooks from .git.
 /// Deletes SwiftHooks hook files and then restores backed-up non-SwiftHooks hook files if any exist.
 public struct UninstallHooksService {
-    private let printer: Printer
-
     /// Create the service.
-    public init() {
-        self.init(printer: SwiftHooks.shared.printer)
-    }
-
-    init(printer: Printer) {
-        self.printer = printer
-    }
+    public init() {}
 
     /// Entry-point to run the service.
     /// - throws: ExitCode when operation ends early due to success or failure.  

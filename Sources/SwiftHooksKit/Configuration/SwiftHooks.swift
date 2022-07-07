@@ -10,3 +10,7 @@ public class SwiftHooks {
     /// There is a `ConsolePrinter` to print to console for CLI tools.
     public var printer: Printer = NoPrinter()
 }
+
+var printer: Printer {
+    SwiftHooks.shared.printer
+}
