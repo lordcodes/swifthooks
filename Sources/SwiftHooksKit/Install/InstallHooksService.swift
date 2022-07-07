@@ -9,11 +9,19 @@ import Files
 /// Handles non-SwiftHooks hooks that are already found by backing them up and
 /// will also overwrite old SwiftHooks hook files.
 public struct InstallHooksService {
+    private let printer: Printer
+
     /// Create the service.
-    public init() {}
+    public init() {
+        self.init(printer: SwiftHooks.shared.printer)
+    }
+
+    init(printer: Printer) {
+        self.printer = printer
+    }
 
     /// Entry-point to run the service.
-    /// - throws: `ExecutionError` when a fatal error has occurred and the command should fail.
+    /// - throws: ExitCode when operation ends early due to success or failure.  
     public func run() throws {
         printer.printMessage("🔨 Installing project Git hooks")
 
@@ -21,10 +29,10 @@ public struct InstallHooksService {
     }
 
     private func installGitHooks() throws {
-        let gitHooksDirectory = try handleFatalError {
+        let gitHooksDirectory = try handleFatalError(using: printer) {
             try Folder.current.gitHooks()
         }
-        let projectHooksDirectory = try handleFatalError {
+        let projectHooksDirectory = try handleFatalError(using: printer) {
             try Folder.current.projectHooks()
         }
 
@@ -32,25 +40,22 @@ public struct InstallHooksService {
             if !projectHooksDirectory.containsSubfolder(named: hook) {
                 continue
             }
-            handleNonFatalError {
-                try gitHooksDirectory
-                    .resolveHookFile(hook)
-                    .setupAsHookFile(hook)
+            handleNonFatalError(using: printer) {
+                let hookFile = try resolveHookFile(hook, in: gitHooksDirectory)
+                try setupFileAsHookFile(file: hookFile, for: hook)
             }
         }
     }
-}
 
-private extension Folder {
-    func resolveHookFile(_ hook: String) throws -> File {
-        if containsFile(named: hook) {
-            try handleExistingHookFile(hook)
+    private func resolveHookFile(_ hook: String, in gitHooksDirectory: Folder) throws -> File {
+        if gitHooksDirectory.containsFile(named: hook) {
+            try handleExistingHookFile(hook, in: gitHooksDirectory)
         }
-        return try createNewHookFile(for: hook)
+        return try createNewHookFile(for: hook, in: gitHooksDirectory)
     }
 
-    func handleExistingHookFile(_ hook: String) throws {
-        guard let existingFile = try? file(named: hook) else {
+    private func handleExistingHookFile(_ hook: String, in gitHooksDirectory: Folder) throws {
+        guard let existingFile = try? gitHooksDirectory.file(named: hook) else {
             return
         }
         let hookContents = try readHookFileContents(hook: hook, file: existingFile)
@@ -63,7 +68,7 @@ private extension Folder {
         }
     }
 
-    func readHookFileContents(hook: String, file: File) throws -> String {
+    private func readHookFileContents(hook: String, file: File) throws -> String {
         do {
             return try file.readAsString()
         } catch is ReadError {
@@ -71,7 +76,7 @@ private extension Folder {
         }
     }
 
-    func deleteExistingHookFile(hook: String, file: File) throws {
+    private func deleteExistingHookFile(hook: String, file: File) throws {
         do {
             try file.delete()
         } catch is LocationError {
@@ -79,7 +84,7 @@ private extension Folder {
         }
     }
 
-    func backupNoGeneratedHookFile(hook: String, file: File) throws {
+    private func backupNoGeneratedHookFile(hook: String, file: File) throws {
         do {
             try file.rename(to: "\(file.name).backup", keepExtension: false)
         } catch is LocationError {
@@ -87,21 +92,19 @@ private extension Folder {
         }
     }
 
-    func createNewHookFile(for hook: String) throws -> File {
+    private func createNewHookFile(for hook: String, in gitHooksDirectory: Folder) throws -> File {
         do {
-            return try createFile(named: hook)
+            return try gitHooksDirectory.createFile(named: hook)
         } catch is WriteError {
             throw SwiftHooksError.resovingHookFile(hook: hook, reason: .creatingNew)
         }
     }
-}
 
-private extension File {
-    func setupAsHookFile(_ hook: String) throws {
+    private func setupFileAsHookFile(file: File, for hook: String) throws {
         printer.printMessage("\(hook): writing hook file contents…")
         do {
-            try write(hookTemplate)
-            try setPermissions(
+            try file.write(hookTemplate)
+            try file.setPermissions(
                 owner: [.execute, .write, .read],
                 group: [.execute, .write, .read],
                 others: [.execute, .write, .read]

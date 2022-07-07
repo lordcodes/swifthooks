@@ -7,15 +7,7 @@ import XCTest
 class VersionServiceTests: XCTestCase {
     private let printer = FakePrinter()
 
-    private let service = VersionService()
-
-    override func setUpWithError() throws {
-        SwiftHooks.configuration.printer = printer
-    }
-
-    override func tearDownWithError() throws {
-        SwiftHooks.configuration.printer = NoPrinter()
-    }
+    private lazy var service = VersionService(printer: printer)
 
     func test_run() throws {
         service.run()

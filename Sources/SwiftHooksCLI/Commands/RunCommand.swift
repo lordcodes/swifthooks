@@ -6,7 +6,7 @@ import SwiftHooksKit
 func runCommand(runCommand: () throws -> Void) {
     do {
         try runCommand()
-    } catch ExecutionError.failure {
+    } catch ExitCode.failure {
         exit(EXIT_FAILURE)
     } catch {
         print(error)
