@@ -56,7 +56,7 @@ import ProjectDescription
 
 let config = Config(
     plugins: [
-        .git(url: "https://github.com/lordcodes/swifthooks.git", tag: "{ENTER_LATEST_VERSION}")
+        .git(url: "https://github.com/lordcodes/swifthooks.git", tag: "VERSION")
     ]
 )
 ```
@@ -84,12 +84,25 @@ Support for Homebrew may be planned in the future.
 To install SwiftHooks for use in your own Swift code, add it is a Swift Package Manager dependency within your `Package.swift` file. For help in doing this, please check out the Swift Package Manager documentation.
 
 ```swift
-.package(url: "https://github.com/lordcodes/swifthooks", exact: "0.0.1")
+.package(url: "https://github.com/lordcodes/swifthooks", exact: "VERSION")
 ```
 
 &nbsp;
 
 ## Usage
+
+### Configure project hooks
+
+Git hooks should be stored inside a `.git-hooks` directory, which should be relative to the working directory. Inside create a folder named according to the required Git hook and then place the scripts you wish to run in an executable form within the hook folder.
+
+For example:
+
+```terminal
+.git-hooks/commit-msg/prepend-jira-issue-id.sh
+.git-hooks/prepare-commit-msg/prepend-jira-issue-id.sh
+```
+
+Ensure the scripts are executable with `chmod a+x .git-hooks/commit-msg/prepend-jira-issue-id.sh`.
 
 ### 🖥 Via the Tuist Plugin
 
@@ -129,7 +142,7 @@ To use SwiftHooks within your own Swift code, import and use the public API of `
 import SwiftHooksKit
 
 // Configure printing
-SwiftHooks.configuration.printer = ConsolePrinter(quiet: false)
+SwiftHooks.shared.printer = ConsolePrinter(quiet: false)
 
 // Install hooks
 try InstallHooksService().run()
