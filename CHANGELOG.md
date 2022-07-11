@@ -1,9 +1,5 @@
 # Changelog
 
-## 0.2.0 - 2022-07-07
-
-- no changes
-
 ## v0.1.0
 
 - Reduce size of Tuist plugin archive to less than a third of before.
