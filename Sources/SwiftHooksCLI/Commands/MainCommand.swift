@@ -16,7 +16,8 @@ struct MainCommand {
             try UninstallCommand(options: options).run()
         case "version":
             VersionCommand(options: options).run()
-        case "-h", "--help":
+        case "-h",
+             "--help":
             printHelp()
         default:
             try printUnexpectedArgumentError(argument: subcommand)

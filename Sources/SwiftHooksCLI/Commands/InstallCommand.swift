@@ -24,7 +24,7 @@ struct InstallCommand {
         OPTIONS:
           -q, --quiet             Silence any output except errors
           -h, --help              Show help information.
-        
+
         """
         print(help)
     }

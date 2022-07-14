@@ -17,13 +17,13 @@ let package = Package(
         .executableTarget(
             name: "SwiftHooksCLI",
             dependencies: [
-                .target(name: "SwiftHooksKit")
+                .target(name: "SwiftHooksKit"),
             ]
         ),
         .target(
             name: "SwiftHooksKit",
             dependencies: [
-                .product(name: "Files", package: "Files")
+                .product(name: "Files", package: "Files"),
             ]
         ),
         .testTarget(

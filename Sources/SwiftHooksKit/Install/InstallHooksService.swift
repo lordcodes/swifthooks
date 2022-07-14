@@ -13,7 +13,7 @@ public struct InstallHooksService {
     public init() {}
 
     /// Entry-point to run the service.
-    /// - throws: ExitCode when operation ends early due to success or failure.  
+    /// - throws: ExitCode when operation ends early due to success or failure.
     public func run() throws {
         printer.printMessage("🔨 Installing project Git hooks")
 
