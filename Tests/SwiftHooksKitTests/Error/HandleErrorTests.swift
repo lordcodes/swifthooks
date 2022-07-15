@@ -37,7 +37,7 @@ class HandleErrorTests: XCTestCase {
     }
 
     func test_handleNonFatalError_noError() throws {
-        handleNonFatalError(using: printer) { let _ = 6 }
+        handleNonFatalError(using: printer) { _ = 6 }
 
         XCTAssertNil(printer.errorsPrinted.last)
     }

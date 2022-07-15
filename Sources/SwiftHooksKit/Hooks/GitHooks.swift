@@ -22,5 +22,5 @@ let gitHooks = [
     "sendemail-validate",
     "fsmonitor-watchman",
     "p4-pre-submit",
-    "post-index-change"
+    "post-index-change",
 ]

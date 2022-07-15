@@ -55,9 +55,9 @@ extension SwiftHooksError: CustomStringConvertible {
     }
 }
 
-extension SwiftHooksError {
+public extension SwiftHooksError {
     /// Different reasons interacting with the hook file failed.
-    public enum ResolvingHookFile: Equatable {
+    enum ResolvingHookFile: Equatable {
         /// Creating a new hook file failed.
         case creatingNew
 

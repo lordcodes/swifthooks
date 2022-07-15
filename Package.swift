@@ -1,4 +1,4 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.5
 
 import PackageDescription
 
@@ -11,19 +11,19 @@ let package = Package(
         .library(name: "SwiftHooksKit", targets: ["SwiftHooksKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/JohnSundell/Files", exact: "4.2.0"),
+        .package(url: "https://github.com/JohnSundell/Files", .exact("4.2.0")),
     ],
     targets: [
         .executableTarget(
             name: "SwiftHooksCLI",
             dependencies: [
-                .target(name: "SwiftHooksKit")
+                .target(name: "SwiftHooksKit"),
             ]
         ),
         .target(
             name: "SwiftHooksKit",
             dependencies: [
-                .product(name: "Files", package: "Files")
+                .product(name: "Files", package: "Files"),
             ]
         ),
         .testTarget(

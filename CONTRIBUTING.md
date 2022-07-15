@@ -23,6 +23,7 @@ If this is your first time contributing to SwiftHooks, please have a read throug
 * Clone the repository.
 * To build: build in Xcode or run `tuist plugin build`.
 * To test: test in Xcode or run `tuist plugin test`.
+* To format code: `tuist swiftformat`.
 * To run locally, navigate to the project you want to run on and then run `tuist plugin run tuist-hooks {COMMAND} --path /path/to/swifthooks`.
 
 Thanks!

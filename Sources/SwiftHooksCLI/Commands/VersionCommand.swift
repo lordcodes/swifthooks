@@ -22,7 +22,7 @@ struct VersionCommand {
 
         OPTIONS:
           -h, --help              Show help information.
-        
+
         """
         print(help)
     }
