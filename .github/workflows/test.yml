@@ -25,6 +25,7 @@ jobs:
 
     - name: Run tests
       run: swift test -v
+
   lint:
     runs-on: macos-latest
     steps:
@@ -40,9 +41,10 @@ jobs:
     
     - name: SwiftFormat
       run: |
-        tuist swiftformat lint --report .build/reports/swiftformat-results.json
+        mkdir -p .build/reports
+        tuist swiftformat lint --report .build/reports/swiftformat.json
 
     - uses: actions/upload-artifact@v3
       with:
-        name: build-reports
+        name: lint-build-reports
         path: .build/reports
