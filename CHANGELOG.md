@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - 2022-07-15
+
+### Added
+
+- Add SwiftFormat using Tuist [#17](https://github.com/lordcodes/swifthooks/pull/17) by [@lordcodes](https://github.com/lordcodes)
+
 ## 0.2.0 - 2022-07-11
 
 - no changes
