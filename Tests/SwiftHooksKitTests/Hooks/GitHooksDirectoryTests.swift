@@ -19,7 +19,11 @@ class GitHooksDirectoryTests: XCTestCase {
 
     func test_gitHooks_noGitFolder() throws {
         XCTAssertThrowsError(try folder.gitHooks()) { error in
-            XCTAssertEqual(error as! SwiftHooksError, SwiftHooksError.noGitDirectory)
+            if let hooksError = error as? SwiftHooksError {
+                XCTAssertEqual(hooksError, SwiftHooksError.noGitDirectory)
+            } else {
+                XCTFail("Expected SwiftHooksError.noGitDirectory, but got \(error.localizedDescription)")
+            }
         }
     }
 

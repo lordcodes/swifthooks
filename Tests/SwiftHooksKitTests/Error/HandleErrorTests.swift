@@ -18,7 +18,11 @@ class HandleErrorTests: XCTestCase {
         XCTAssertThrowsError(
             try handleFatalError(using: printer) { throw SwiftHooksError.noGitDirectory }
         ) { error in
-            XCTAssertEqual(error as! ExitCode, ExitCode.failure)
+            if let exitCode = error as? ExitCode {
+                XCTAssertEqual(exitCode, ExitCode.failure)
+            } else {
+                XCTFail("Expected ExitCode.failure, but got \(error.localizedDescription)")
+            }
         }
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
@@ -29,7 +33,11 @@ class HandleErrorTests: XCTestCase {
         XCTAssertThrowsError(
             try handleFatalError(using: printer) { throw TestError.failed }
         ) { error in
-            XCTAssertEqual(error as! ExitCode, ExitCode.failure)
+            if let exitCode = error as? ExitCode {
+                XCTAssertEqual(exitCode, ExitCode.failure)
+            } else {
+                XCTFail("Expected ExitCode.failure, but got \(error.localizedDescription)")
+            }
         }
         let printedError = printer.errorsPrinted.last
         XCTAssertNotNil(printedError)
