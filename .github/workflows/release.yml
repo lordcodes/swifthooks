@@ -40,7 +40,7 @@ jobs:
       run: echo '::set-output name=version::${{ steps.calculated_semvers.outputs.minor }}${{ github.event.inputs.version }}'
       id: semvers
 
-    - name: Update Cloak version
+    - name: Update version
       run: |
         sed -i -e "s/current = \".*\"/current = \"${{ steps.semvers.outputs.version }}\"/g" Sources/SwiftHooksKit/Version/Version.swift
 
@@ -90,8 +90,13 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         token: "${{ secrets.GITHUB_TOKEN }}"
-        files: cloak.tuist-plugin.zip
+        files: swifthooks.tuist-plugin.zip
         name: ${{ needs.prepare-release.outputs.version }}
         tag_name: v${{ needs.prepare-release.outputs.version }}
         body: ${{ needs.prepare-release.outputs.changelog }}
         target_commitish: ${{ needs.prepare-release.outputs.commit_hash }}
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: swifthooks.tuist-plugin.zip
+        path: swifthooks.tuist-plugin.zip
