@@ -8,7 +8,8 @@
 
 ## 0.2.0 - 2022-07-11
 
-- no changes
+- Output SwiftHooksKit as framework
+- Code improvements
 
 ## v0.1.0
 
